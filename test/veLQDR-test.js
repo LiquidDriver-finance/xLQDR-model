@@ -109,25 +109,19 @@ describe("veLQDR token model test", function() {
   }
 
   before(async function () {
-    console.log("here1");
     accounts = await web3.eth.getAccounts();
-    console.log("here11", accounts);
     governance = accounts[0];
 
     farmer1 = accounts[1];
     farmer2 = accounts[2];
 
     await impersonates([underlyingWhale, underlyingWhale1, lqdrWhale, fantomWhale]);
-    console.log("here2");
 
     await setupExternalContracts();
-    console.log("here3");
 
     await setupContracts(underlying, governance);
-    console.log("here4");
 
     await setupBalance();
-    console.log("here5");
   });
 
   describe("xLQDR test pass", function () {
@@ -151,19 +145,6 @@ describe("veLQDR token model test", function() {
 
   describe("fee distributor test pass", function () {
     it("User earns LQDR and WFANTOM", async function () {
-      // lock lqdr for farmer1
-      // let farmerOldBalance = new BigNumber(await underlying.balanceOf(farmer1));
-      // console.log('farmerOldBalance: ', farmerOldBalance.toString());
-
-      // var myDate = "30-06-2022";
-      // myDate = myDate.split("-");
-      // var newDate = new Date( myDate[2], myDate[1] - 1, myDate[0]);
-      // console.log("timestamp: ", newDate.getTime());
-
-      // await underlying.approve(veLQDR.address, farmerOldBalance, {from: farmer1});
-
-      // await lockLQDR(farmer1, underlying, farmerOldBalance, newDate.getTime() / 1000);
-
       let farmerShareBalance = new BigNumber(await veLQDR.balanceOf(farmer1)).toFixed();
       console.log('farmerShareBalance: ', farmerShareBalance.toString());
 
@@ -195,7 +176,6 @@ describe("veLQDR token model test", function() {
       await Utils.advanceNBlock((24 * 20 + 10) * 40);
       console.log("after timestamp: ", (await feeDistributor.get_timestamp()).toString());
 
-      console.log('\n\n\n==== step 1 ====');
       console.log('voting escrow address: ', veLQDR.address);
       console.log('voting_escrow', await feeDistributor.voting_escrow());
       console.log('token', await feeDistributor.token());
@@ -204,19 +184,7 @@ describe("veLQDR token model test", function() {
       console.log('time_cursor', (await feeDistributor.time_cursor()).toString());
       console.log('can_checkpoint_token', await feeDistributor.can_checkpoint_token());
 
-      // Distribute rewards
-      // await feeDistributor.checkpoint_total_supply({from: governance});
-      // await feeDistributor.checkpoint_token({from: governance});
       await feeDistributor.toggle_allow_checkpoint_token({from: governance});
-
-      // console.log('\n\n\n==== step 2 ====');
-      // console.log('voting escrow address: ', veLQDR.address);
-      // console.log('voting_escrow', await feeDistributor.voting_escrow());
-      // console.log('token', await feeDistributor.token());
-      // console.log('token_last_balance', (await feeDistributor.token_last_balance()).toString());
-      // console.log('last_token_time', (await feeDistributor.last_token_time()).toString());
-      // console.log('time_cursor', (await feeDistributor.time_cursor()).toString());
-      // console.log('can_checkpoint_token', await feeDistributor.can_checkpoint_token());
 
       // claim rewards for farmer1
       let lqdrClaimAmount, fantomClaimAmount;
