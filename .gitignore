@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+dev-keys.json
+package-lock.json
+
+artifacts
+cache
