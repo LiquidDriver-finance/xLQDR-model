@@ -108,3 +108,5 @@ package-lock.json
 
 artifacts
 cache
+
+.DS_Store
