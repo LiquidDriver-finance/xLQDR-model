@@ -647,12 +647,10 @@ def totalSupplyAt(_block: uint256) -> uint256:
     return self.supply_at(point, point.ts + dt)
 
 
-# Dummy methods for compatibility with Aragon
-
 @external
 def changeController(_newController: address):
     """
-    @dev Dummy method required for Aragon compatibility
+    @dev Change controller
     """
     assert msg.sender == self.controller
     self.controller = _newController

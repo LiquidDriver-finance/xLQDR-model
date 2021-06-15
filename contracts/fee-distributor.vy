@@ -481,6 +481,8 @@ def recover_balance(_coin: address) -> bool:
 
     return True
 
+# for test purpose
+
 @view
 @external
 def get_timestamp() -> uint256:
